@@ -4,6 +4,7 @@ import Showdown from "showdown";
 
 export default function Editor({ currentNote, updateNote }) {
   const [selectedTab, setSelectedTab] = React.useState("write");
+
   const converter = new Showdown.Converter({
     tables: true,
     simplifiedAutoLink: true,
@@ -22,7 +23,7 @@ export default function Editor({ currentNote, updateNote }) {
           Promise.resolve(converter.makeHtml(markdown))
         }
         minEditorHeight={80}
-        neightUnits="vh"
+        heightUnits="vh"
       />
     </section>
   );
