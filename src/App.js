@@ -16,6 +16,7 @@ function App() {
       body: "# Type your markdown note's title here",
     };
     setNotes((prevNotes) => [newNote, ...prevNotes]);
+    setCurrentNoteId(newNote.id);
   }
   function updateNote(text) {
     setNotes((oldNotes) =>
@@ -26,13 +27,25 @@ function App() {
       })
     );
   }
+  function findCurrentNote() {
+    return (
+      notes.find((note) => {
+        return note.id === currentNoteId;
+      }) || notes[0]
+    );
+  }
 
   return (
     <main>
       {notes.length > 0 ? (
         <Split sizes={[30, 70]} direction="horizontal" className="split">
           <Sidebar />
-          {currentNoteId && notes.length > 0 && <Editor />}
+          {currentNoteId && notes.length > 0 && (
+            <Editor
+              currentNote={findCurrentNote()}
+              updateNote={{ updateNote }}
+            />
+          )}
         </Split>
       ) : (
         <div className="no-notes">
